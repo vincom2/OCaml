@@ -34,7 +34,7 @@ let main infile ?outfile =
   let test = C.parse_dot_file infile in
   let () = C.display_with_gv test in
   let (test',m) = C.prob_min_cut test in
-  let () = Printf.printf "w.h.p. a min cut of test.dot contains %i edge(s)\n" m in
+  let () = Printf.printf "w.h.p. a min cut of %s contains %i edge(s)\n" infile m in
   let () = C.display_with_gv test' in
   match outfile with
   | None -> ()
