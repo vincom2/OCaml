@@ -10,13 +10,13 @@ end
 
 module Make :
   functor (G : COUNTER_GRAPH) ->
-    sig
-      include COUNTER_GRAPH
+  sig
+    include COUNTER_GRAPH
 
-      exception TooSmall
-      
-      (* val contract : t -> int -> unit *)
-      (* val cut : t -> t * int *)
-      val prob_min_cut : t -> t * int
-      val parse_dot_file : string -> t
-    end
+    exception TooSmall
+
+    (* val contract : t -> int -> unit *)
+    (* val cut : t -> t * int *)
+    val prob_min_cut : t -> t * int
+    val parse_dot_file : string -> t
+  end
