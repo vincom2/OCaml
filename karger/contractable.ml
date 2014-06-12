@@ -23,8 +23,6 @@ module Make(G : COUNTER_GRAPH) = struct
 
   exception TooSmall
 
-      Random.self_init ()
-
   let contract g l =
     let consider e =
       let u = E.src e
@@ -70,19 +68,20 @@ module Make(G : COUNTER_GRAPH) = struct
     (g, nb_edges g)
 
   let prob_min_cut g =
-      let min_cut = ref Int.max_value
-      and min_g = ref g in
-      let n = float (nb_vertex g) in
-      let stop = Int.of_float ((n**2.) *. (log n)) + 1 in
-      for i = 0 to stop do
-        let (cut_graph, cut_size) = cut g in
-        if cut_size < !min_cut then begin
-          min_cut := cut_size;
-          min_g := cut_graph
-        end
-        else ()
-      done;
-      (!min_g, !min_cut)
+    let () = Random.self_init () in
+    let min_cut = ref Int.max_value
+    and min_g = ref g in
+    let n = float (nb_vertex g) in
+    let stop = Int.of_float ((n**2.) *. (log n)) + 1 in
+    for i = 0 to stop do
+      let (cut_graph, cut_size) = cut g in
+      if cut_size < !min_cut then begin
+        min_cut := cut_size;
+        min_g := cut_graph
+      end
+      else ()
+    done;
+    (!min_g, !min_cut)
 
   let parse_dot_file filename =
     let g = parse_dot_file filename in
